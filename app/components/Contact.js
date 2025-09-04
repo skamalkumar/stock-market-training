@@ -144,7 +144,18 @@ export default function Contact() {
                     method="POST"
                     data-netlify="true"
                     netlify-honeypot="bot-field"
-                    onSubmit={() => setIsSubmitted(true)}
+                    onSubmit={(e) => {
+                      e.preventDefault(); // stop full page reload
+                      const form = e.target;
+                      fetch("/", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                        body: new URLSearchParams(new FormData(form)).toString(),
+                      })
+                      .then(() => setIsSubmitted(true))
+                      .catch((error) => alert(error));
+                    }}
+
                     className="space-y-6"
                   >
                     {/* Hidden input required for Netlify */}

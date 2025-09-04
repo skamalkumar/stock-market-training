@@ -75,7 +75,7 @@ export default function Contact() {
               Get In Touch
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Ready to start your stock market journey? Let's discuss how we can guide you.
+              Ready to start your stock market journey? Let us discuss how we can guide you.
             </p>
           </div>
 
@@ -86,7 +86,7 @@ export default function Contact() {
                   Contact Information
                 </h3>
                 <p className="text-gray-600 mb-8">
-                  We're here to help you learn and grow. Reach out to us through any of the following channels.
+                  We are here to help you learn and grow. Reach out to us through any of the following channels.
                 </p>
               </div>
 
@@ -178,7 +178,7 @@ export default function Contact() {
                     {/* Hidden input required for Netlify */}
                     <input type="hidden" name="form-name" value="contact" />
                     <div className="hidden">
-                      <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                      <label>Don not fill this out if you're human: <input name="bot-field" /></label>
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-6">

@@ -5,42 +5,7 @@ import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from 'lucide-react'
 import Image from 'next/image'
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    service: '',
-    message: ''
-  })
-
   const [isSubmitted, setIsSubmitted] = useState(false)
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }))
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log('Form submitted:', formData)
-    setIsSubmitted(true)
-
-    setTimeout(() => {
-      setIsSubmitted(false)
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        company: '',
-        service: '',
-        message: ''
-      })
-    }, 3000)
-  }
 
   const contactInfo = [
     {
@@ -82,7 +47,7 @@ export default function Contact() {
               Get In Touch
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              {"Ready to transform your hiring process? Let's discuss how we can help your organization find the right talent."}
+              Ready to start your stock market journey? Let's discuss how we can guide you.
             </p>
           </div>
 
@@ -93,7 +58,7 @@ export default function Contact() {
                   Contact Information
                 </h3>
                 <p className="text-gray-600 mb-8">
-                  {"We're here to help you succeed. Reach out to us through any of the following channels."}
+                  We're here to help you learn and grow. Reach out to us through any of the following channels.
                 </p>
               </div>
 
@@ -123,7 +88,7 @@ export default function Contact() {
                 <div className="absolute inset-0 opacity-5">
                   <Image 
                     src="https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=600" 
-                    alt="Professional HR consultation"
+                    alt="Stock market training consultation"
                     width={600}
                     height={400}
                     className="w-full h-full object-cover"
@@ -144,11 +109,11 @@ export default function Contact() {
                     </div>
                     <div className="flex items-center space-x-3">
                       <CheckCircle className="h-5 w-5 text-green-500" />
-                      <span className="text-gray-600">Customized solutions</span>
+                      <span className="text-gray-600">Customized training plans</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <CheckCircle className="h-5 w-5 text-green-500" />
-                      <span className="text-gray-600">Expert guidance</span>
+                      <span className="text-gray-600">Expert guidance from professionals</span>
                     </div>
                   </div>
                 </div>
@@ -165,7 +130,7 @@ export default function Contact() {
                     Thank You!
                   </h3>
                   <p className="text-gray-600">
-                    {"Your message has been sent successfully. We'll get back to you within 24 hours."}
+                    Your message has been sent successfully. We'll get back to you within 24 hours.
                   </p>
                 </div>
               ) : (
@@ -174,7 +139,20 @@ export default function Contact() {
                     Send Us a Message
                   </h3>
                   
-                  <form onSubmit={handleSubmit} className="space-y-6">
+                  <form 
+                    name="contact"
+                    method="POST"
+                    data-netlify="true"
+                    netlify-honeypot="bot-field"
+                    onSubmit={() => setIsSubmitted(true)}
+                    className="space-y-6"
+                  >
+                    {/* Hidden input required for Netlify */}
+                    <input type="hidden" name="form-name" value="contact" />
+                    <p className="hidden">
+                      <label>Don’t fill this out: <input name="bot-field" /></label>
+                    </p>
+
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
                         <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
@@ -184,8 +162,6 @@ export default function Contact() {
                           type="text"
                           id="name"
                           name="name"
-                          value={formData.name}
-                          onChange={handleInputChange}
                           required
                           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-colors duration-200"
                           placeholder="Your full name"
@@ -200,8 +176,6 @@ export default function Contact() {
                           type="email"
                           id="email"
                           name="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
                           required
                           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-colors duration-200"
                           placeholder="your.email@example.com"
@@ -218,8 +192,6 @@ export default function Contact() {
                           type="tel"
                           id="phone"
                           name="phone"
-                          value={formData.phone}
-                          onChange={handleInputChange}
                           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-colors duration-200"
                           placeholder="+91 98765 43210"
                         />
@@ -233,8 +205,6 @@ export default function Contact() {
                           type="text"
                           id="company"
                           name="company"
-                          value={formData.company}
-                          onChange={handleInputChange}
                           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-colors duration-200"
                           placeholder="Your company name"
                         />
@@ -248,18 +218,15 @@ export default function Contact() {
                       <select
                         id="service"
                         name="service"
-                        value={formData.service}
-                        onChange={handleInputChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-colors duration-200"
                       >
                         <option value="">Select a service</option>
-                       <option value="beginner-course">Beginner Stock Market Course</option>
+                        <option value="beginner-course">Beginner Stock Market Course</option>
                         <option value="advanced-trading">Advanced Trading Strategies</option>
                         <option value="technical-analysis">Technical Analysis</option>
                         <option value="fundamental-analysis">Fundamental Analysis</option>
                         <option value="derivatives">Futures & Options (Derivatives)</option>
                         <option value="investment-planning">Investment & Wealth Planning</option>
-
                       </select>
                     </div>
 
@@ -270,8 +237,6 @@ export default function Contact() {
                       <textarea
                         id="message"
                         name="message"
-                        value={formData.message}
-                        onChange={handleInputChange}
                         required
                         rows={4}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-colors duration-200"

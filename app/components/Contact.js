@@ -41,18 +41,17 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     const form = e.target;
     const formData = new FormData(form);
 
     try {
-      // Use the form's action URL (Netlify's form endpoint)
       await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData).toString(),
       });
-      
+
       setIsSubmitted(true);
       form.reset();
     } catch (error) {
@@ -72,7 +71,8 @@ export default function Contact() {
               Get In Touch
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Ready to start your stock market journey? Let&apos;s discuss how we can guide you.
+              Ready to start your stock market journey? Let&apos;s discuss how we
+              can guide you.
             </p>
           </div>
 
@@ -84,7 +84,8 @@ export default function Contact() {
                   Contact Information
                 </h3>
                 <p className="text-gray-600 mb-8">
-                  We&apos;re here to help you learn and grow. Reach out to us through any of the following channels.
+                  We&apos;re here to help you learn and grow. Reach out to us
+                  through any of the following channels.
                 </p>
               </div>
               <div className="space-y-6">
@@ -151,7 +152,8 @@ export default function Contact() {
                     Thank You!
                   </h3>
                   <p className="text-gray-600">
-                    Your message has been sent successfully. We&apos;ll get back to you within 24 hours.
+                    Your message has been sent successfully. We&apos;ll get back
+                    to you within 24 hours.
                   </p>
                 </div>
               ) : (
@@ -169,7 +171,7 @@ export default function Contact() {
                   >
                     {/* Netlify form recognition */}
                     <input type="hidden" name="form-name" value="contact" />
-                    
+
                     {/* Honeypot field */}
                     <div className="hidden">
                       <label>
@@ -180,7 +182,10 @@ export default function Contact() {
 
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label
+                          htmlFor="name"
+                          className="block text-sm font-medium text-gray-700 mb-2"
+                        >
                           Full Name *
                         </label>
                         <input
@@ -193,7 +198,10 @@ export default function Contact() {
                         />
                       </div>
                       <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label
+                          htmlFor="email"
+                          className="block text-sm font-medium text-gray-700 mb-2"
+                        >
                           Email Address *
                         </label>
                         <input
@@ -209,7 +217,10 @@ export default function Contact() {
 
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
-                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label
+                          htmlFor="phone"
+                          className="block text-sm font-medium text-gray-700 mb-2"
+                        >
                           Phone Number
                         </label>
                         <input
@@ -221,7 +232,10 @@ export default function Contact() {
                         />
                       </div>
                       <div>
-                        <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label
+                          htmlFor="company"
+                          className="block text-sm font-medium text-gray-700 mb-2"
+                        >
                           Company Name
                         </label>
                         <input
@@ -235,7 +249,10 @@ export default function Contact() {
                     </div>
 
                     <div>
-                      <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label
+                        htmlFor="service"
+                        className="block text-sm font-medium text-gray-700 mb-2"
+                      >
                         Service Interested In
                       </label>
                       <select
@@ -244,17 +261,32 @@ export default function Contact() {
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-colors duration-200"
                       >
                         <option value="">Select a service</option>
-                        <option value="beginner-course">Beginner Stock Market Course</option>
-                        <option value="advanced-trading">Advanced Trading Strategies</option>
-                        <option value="technical-analysis">Technical Analysis</option>
-                        <option value="fundamental-analysis">Fundamental Analysis</option>
-                        <option value="derivatives">Futures & Options (Derivatives)</option>
-                        <option value="investment-planning">Investment & Wealth Planning</option>
+                        <option value="beginner-course">
+                          Beginner Stock Market Course
+                        </option>
+                        <option value="advanced-trading">
+                          Advanced Trading Strategies
+                        </option>
+                        <option value="technical-analysis">
+                          Technical Analysis
+                        </option>
+                        <option value="fundamental-analysis">
+                          Fundamental Analysis
+                        </option>
+                        <option value="derivatives">
+                          Futures & Options (Derivatives)
+                        </option>
+                        <option value="investment-planning">
+                          Investment & Wealth Planning
+                        </option>
                       </select>
                     </div>
 
                     <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label
+                        htmlFor="message"
+                        className="block text-sm font-medium text-gray-700 mb-2"
+                      >
                         Message *
                       </label>
                       <textarea
@@ -273,7 +305,9 @@ export default function Contact() {
                       className="w-full bg-green-800 text-white px-6 py-4 rounded-lg hover:bg-green-900 disabled:bg-gray-400 transition-colors duration-200 flex items-center justify-center space-x-2 font-medium shadow-lg"
                     >
                       <Send className="h-5 w-5" />
-                      <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
+                      <span>
+                        {isSubmitting ? "Sending..." : "Send Message"}
+                      </span>
                     </button>
                   </form>
                 </>
@@ -282,6 +316,13 @@ export default function Contact() {
           </div>
         </div>
       </div>
+
+      {/* Hidden form for Netlify build detection */}
+      <form name="contact" method="POST" data-netlify="true" hidden>
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <textarea name="message"></textarea>
+      </form>
     </section>
   );
 }

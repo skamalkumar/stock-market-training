@@ -1,31 +1,17 @@
-// app/layout.js
-import "./globals.css";
+import './globals.css'
 
 export const metadata = {
-  title: "Stock Market Training",
-  description: "Learn stock market trading and investment strategies",
-};
+  title: 'Stock Market Training - Learn. Invest. Grow.',
+  description: 'India’s trusted platform for learning stock markets. Join our courses to master trading, investing, and financial growth.',
+}
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-        {/* ✅ Hidden static form for Netlify recognition */}
-        <form
-          name="contact"
-          method="POST"
-          data-netlify="true"
-          hidden
-        >
-          <input type="hidden" name="form-name" value="contact" />
-          <input type="text" name="name" />
-          <input type="email" name="email" />
-          <textarea name="message"></textarea>
-        </form>
-
-        {/* Your actual app */}
-        {children}
-      </body>
+      <head>
+        <link rel="icon" href="/favicon.ico" /> 
+      </head>
+      <body>{children}</body>
     </html>
-  );
+  )
 }

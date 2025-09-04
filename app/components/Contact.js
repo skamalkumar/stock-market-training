@@ -6,6 +6,7 @@ import Image from 'next/image'
 
 export default function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const contactInfo = [
     {
@@ -37,6 +38,33 @@ export default function Contact() {
       color: "indigo"
     }
   ]
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+
+    const form = e.target
+    const formData = new FormData(form)
+    
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString(),
+      })
+
+      if (response.ok) {
+        setIsSubmitted(true)
+      } else {
+        throw new Error('Form submission failed')
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      alert('There was an error submitting the form. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <section id="contact" className="py-20 bg-gray-50">
@@ -143,26 +171,15 @@ export default function Contact() {
                     name="contact"
                     method="POST"
                     data-netlify="true"
-                    netlify-honeypot="bot-field"
-                    onSubmit={(e) => {
-                      e.preventDefault(); // stop full page reload
-                      const form = e.target;
-                      fetch("/", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                        body: new URLSearchParams(new FormData(form)).toString(),
-                      })
-                      .then(() => setIsSubmitted(true))
-                      .catch((error) => alert(error));
-                    }}
-
+                    data-netlify-honeypot="bot-field"
+                    onSubmit={handleSubmit}
                     className="space-y-6"
                   >
                     {/* Hidden input required for Netlify */}
                     <input type="hidden" name="form-name" value="contact" />
-                    <p className="hidden">
-                      <label>Don’t fill this out: <input name="bot-field" /></label>
-                    </p>
+                    <div className="hidden">
+                      <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                    </div>
 
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
@@ -257,10 +274,11 @@ export default function Contact() {
 
                     <button
                       type="submit"
-                      className="w-full bg-green-800 text-white px-6 py-4 rounded-lg hover:bg-green-900 transition-colors duration-200 flex items-center justify-center space-x-2 font-medium shadow-lg"
+                      disabled={isSubmitting}
+                      className="w-full bg-green-800 text-white px-6 py-4 rounded-lg hover:bg-green-900 disabled:bg-gray-400 transition-colors duration-200 flex items-center justify-center space-x-2 font-medium shadow-lg"
                     >
                       <Send className="h-5 w-5" />
-                      <span>Send Message</span>
+                      <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
                     </button>
                   </form>
                 </>

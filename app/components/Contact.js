@@ -45,7 +45,7 @@ export default function Contact() {
     const formData = new FormData(form);
 
     try {
-      await fetch("/__forms.html", {
+      await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData).toString(),

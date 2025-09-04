@@ -253,12 +253,13 @@ export default function Contact() {
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-colors duration-200"
                       >
                         <option value="">Select a service</option>
-                        <option value="executive-search">Executive Search</option>
-                        <option value="talent-acquisition">Talent Acquisition</option>
-                        <option value="hr-consulting">HR Consulting</option>
-                        <option value="rpo">Recruitment Process Outsourcing</option>
-                        <option value="industry-expertise">Industry Expertise</option>
-                        <option value="hr-technology">HR Technology</option>
+                       <option value="beginner-course">Beginner Stock Market Course</option>
+                        <option value="advanced-trading">Advanced Trading Strategies</option>
+                        <option value="technical-analysis">Technical Analysis</option>
+                        <option value="fundamental-analysis">Fundamental Analysis</option>
+                        <option value="derivatives">Futures & Options (Derivatives)</option>
+                        <option value="investment-planning">Investment & Wealth Planning</option>
+
                       </select>
                     </div>
 

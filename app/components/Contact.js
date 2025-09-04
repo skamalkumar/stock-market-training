@@ -171,7 +171,7 @@ export default function Contact() {
                     name="contact"
                     method="POST"
                     data-netlify="true"
-                    data-netlify-honeypot="bot-field"
+                    netlify-honeypot="bot-field"
                     onSubmit={handleSubmit}
                     className="space-y-6"
                   >
@@ -280,6 +280,11 @@ export default function Contact() {
                       <Send className="h-5 w-5" />
                       <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
                     </button>
+                    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+                      <input type="text" name="name" />
+                      <input type="email" name="email" />
+                      <textarea name="message"></textarea>
+                    </form>
                   </form>
                 </>
               )}

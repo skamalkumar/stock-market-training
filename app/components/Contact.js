@@ -41,15 +41,18 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    
     const form = e.target;
     const formData = new FormData(form);
 
     try {
+      // Use the form's action URL (Netlify's form endpoint)
       await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData).toString(),
       });
+      
       setIsSubmitted(true);
       form.reset();
     } catch (error) {
@@ -164,10 +167,10 @@ export default function Contact() {
                     onSubmit={handleSubmit}
                     className="space-y-6"
                   >
-                    {/* Required hidden input for Netlify */}
+                    {/* Netlify form recognition */}
                     <input type="hidden" name="form-name" value="contact" />
-
-                    {/* Honeypot */}
+                    
+                    {/* Honeypot field */}
                     <div className="hidden">
                       <label>
                         Don&apos;t fill this out if you&apos;re human:{" "}

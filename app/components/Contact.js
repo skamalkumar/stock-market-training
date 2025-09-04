@@ -149,6 +149,23 @@ export default function Contact() {
             </div>
 
             <div className="bg-white rounded-2xl p-8 shadow-lg">
+              {/* Hidden form for Netlify detection - OUTSIDE of visible form */}
+              <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+                <input type="text" name="name" />
+                <input type="email" name="email" />
+                <input type="tel" name="phone" />
+                <input type="text" name="company" />
+                <select name="service">
+                  <option value="beginner-course">Beginner Stock Market Course</option>
+                  <option value="advanced-trading">Advanced Trading Strategies</option>
+                  <option value="technical-analysis">Technical Analysis</option>
+                  <option value="fundamental-analysis">Fundamental Analysis</option>
+                  <option value="derivatives">Futures & Options (Derivatives)</option>
+                  <option value="investment-planning">Investment & Wealth Planning</option>
+                </select>
+                <textarea name="message"></textarea>
+              </form>
+
               {isSubmitted ? (
                 <div className="text-center py-12">
                   <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -158,7 +175,7 @@ export default function Contact() {
                     Thank You!
                   </h3>
                   <p className="text-gray-600">
-                    Your message has been sent successfully. We'll get back to you within 24 hours.
+                    Your message has been sent successfully. We will get back to you within 24 hours.
                   </p>
                 </div>
               ) : (
@@ -171,14 +188,14 @@ export default function Contact() {
                     name="contact"
                     method="POST"
                     data-netlify="true"
-                    netlify-honeypot="bot-field"
+                    data-netlify-honeypot="bot-field"
                     onSubmit={handleSubmit}
                     className="space-y-6"
                   >
                     {/* Hidden input required for Netlify */}
                     <input type="hidden" name="form-name" value="contact" />
                     <div className="hidden">
-                      <label>Don not fill this out if you're human: <input name="bot-field" /></label>
+                      <label>Do not fill this out if you are human: <input name="bot-field" /></label>
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-6">
@@ -280,11 +297,6 @@ export default function Contact() {
                       <Send className="h-5 w-5" />
                       <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
                     </button>
-                    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
-                      <input type="text" name="name" />
-                      <input type="email" name="email" />
-                      <textarea name="message"></textarea>
-                    </form>
                   </form>
                 </>
               )}

@@ -8,13 +8,6 @@ const nextConfig = {
       },
     ],
   },
-  experimental: {
-    netlifyPlugin: {
-      // ✅ Enable Netlify Forms detection for Next.js
-      forms: true,
-    },
-  },
-  reactStrictMode: true, // optional but recommended
-};
+ };
 
 module.exports = nextConfig;

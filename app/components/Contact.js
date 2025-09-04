@@ -51,7 +51,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 via-white to-green-50 py-16 px-6">
+    <section id="contact" className="bg-gradient-to-br from-blue-50 via-white to-green-50 py-16 px-6">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
         {/* Left side - Contact Info */}
         <div className="space-y-6">
@@ -102,10 +102,7 @@ export default function Contact() {
                 onSubmit={handleSubmit}
                 className="space-y-5"
               >
-                {/* Hidden form-name input */}
                 <input type="hidden" name="form-name" value="contact" />
-
-                {/* Honeypot field */}
                 <p className="hidden">
                   <label>
                     Don’t fill this out if you’re human:{" "}
@@ -179,6 +176,6 @@ export default function Contact() {
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -76,7 +76,7 @@ export default function Header() {
               <NavLink href="home">Home</NavLink>
               <NavLink href="courses">Courses</NavLink>
               <NavLink href="about">About</NavLink>
-              <NavLink href="WhyChooseUs">Why Choose Us</NavLink>
+              <NavLink href="whychooseus">Why Choose Us</NavLink>
               <a
                 href="#contact"
                 onClick={(e) => { e.preventDefault(); scrollToSection('contact') }}

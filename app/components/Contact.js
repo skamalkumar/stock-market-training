@@ -29,6 +29,7 @@ const contactInfo = [
 export default function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [amount, setAmount] = useState(500); // default ₹500
 
   // Load Razorpay script dynamically
   useEffect(() => {
@@ -60,7 +61,11 @@ export default function Contact() {
 
   // Razorpay payment handler
   const handlePayment = async () => {
-    const amount = 500; // Example: ₹500
+    if (!amount || amount <= 0) {
+      alert("Please enter a valid amount");
+      return;
+    }
+
     const res = await fetch("/.netlify/functions/create-order", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -219,13 +224,23 @@ export default function Contact() {
                 </button>
               </form>
 
-              {/* Payment Button */}
-              <div className="mt-6 text-center">
+              {/* Payment Section */}
+              <div className="mt-8">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Enter Payment Amount (INR)
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  value={amount}
+                  onChange={(e) => setAmount(Number(e.target.value))}
+                  className="mt-1 block w-full border border-gray-300 rounded-lg p-3 shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                />
                 <button
                   onClick={handlePayment}
-                  className="bg-green-600 text-white px-6 py-3 rounded-lg font-medium shadow-md hover:bg-green-700 transition"
+                  className="mt-4 w-full bg-green-600 text-white px-6 py-3 rounded-lg font-medium shadow-md hover:bg-green-700 transition"
                 >
-                  Pay Now (₹500)
+                  Pay Now (₹{amount})
                 </button>
               </div>
             </>

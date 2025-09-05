@@ -29,7 +29,7 @@ const contactInfo = [
 export default function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [amount, setAmount] = useState(500); // default ₹500
+  const [amount, setAmount] = useState(500); // ✅ default ₹500
 
   // Load Razorpay script dynamically
   useEffect(() => {
@@ -69,7 +69,7 @@ export default function Contact() {
     const res = await fetch("/.netlify/functions/create-order", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount }),
+      body: JSON.stringify({ amount: parseInt(amount) }),
     });
     const order = await res.json();
 
@@ -224,7 +224,7 @@ export default function Contact() {
                 </button>
               </form>
 
-              {/* Payment Section */}
+              {/* ✅ Payment Section */}
               <div className="mt-8">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Enter Payment Amount (INR)

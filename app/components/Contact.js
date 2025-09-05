@@ -75,7 +75,7 @@ export default function Contact() {
 
     const options = {
       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // ✅ public key from Netlify env
-      amount: order.amount,
+      amount: amount * 100,
       currency: order.currency,
       name: "Stock Market Training",
       description: "Course Payment",

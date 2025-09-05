@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Mail, Phone, MapPin, Clock, CheckCircle2, Loader2 } from "lucide-react";
 
 const contactInfo = [
@@ -30,6 +30,14 @@ export default function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Load Razorpay script dynamically
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -48,6 +56,38 @@ export default function Contact() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  // Razorpay payment handler
+  const handlePayment = async () => {
+    const amount = 500; // Example: ₹500
+    const res = await fetch("/.netlify/functions/create-order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount }),
+    });
+    const order = await res.json();
+
+    const options = {
+      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // ✅ public key from Netlify env
+      amount: order.amount,
+      currency: order.currency,
+      name: "Stock Market Training",
+      description: "Course Payment",
+      order_id: order.id,
+      handler: function (response) {
+        alert("✅ Payment successful: " + response.razorpay_payment_id);
+      },
+      prefill: {
+        name: "Customer Name",
+        email: "customer@example.com",
+        contact: "9999999999",
+      },
+      theme: { color: "#3399cc" },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
   };
 
   return (
@@ -80,7 +120,7 @@ export default function Contact() {
           ))}
         </div>
 
-        {/* Right side - Contact Form */}
+        {/* Right side - Contact Form + Payment */}
         <div className="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100">
           {isSubmitted ? (
             <div className="flex flex-col items-center justify-center p-10 bg-green-50 rounded-xl shadow-lg text-center">
@@ -105,10 +145,7 @@ export default function Contact() {
                 onSubmit={handleSubmit}
                 className="space-y-5"
               >
-                {/* Hidden form-name input */}
                 <input type="hidden" name="form-name" value="contact" />
-
-                {/* Honeypot field */}
                 <p className="hidden">
                   <label>
                     Don’t fill this out if you’re human:{" "}
@@ -181,6 +218,16 @@ export default function Contact() {
                   )}
                 </button>
               </form>
+
+              {/* Payment Button */}
+              <div className="mt-6 text-center">
+                <button
+                  onClick={handlePayment}
+                  className="bg-green-600 text-white px-6 py-3 rounded-lg font-medium shadow-md hover:bg-green-700 transition"
+                >
+                  Pay Now (₹500)
+                </button>
+              </div>
             </>
           )}
         </div>
